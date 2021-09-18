@@ -14,14 +14,14 @@ The idea of the circuit breaker pattern is pretty simple, it abstracts the syste
 ## How it works
 assume there's your service and the external api are connected by a switch,<br>
 the switch can be in 3 states opened(no connection), closed(connected), half-open(no sure).<br>
-![startup](.\blob\img1.png)
+![startup](./blob/img1.png)
 
 when the circuit breaker is closed and the application is using it to call the api, the api will be called, if the call succeeds the api will return the result.<br>
-![closed circuit](.\blob/img2.png)
+![closed circuit](./blob/img2.png)
 
 If our app tries to send a request, and the api is busy it could timeout, the circuit breaker will pass the error to the app.<br>
 because the call failed the circuit breaker will switch to the open state.<br>
-![open circuit](.\blob/img3.png)
+![open circuit](./blob/img3.png)
 
 Now when it receives a request it will raise a circuit breaker open exception and return to the app without calling the api.<br>
 You can set the mechanism by which the circuit should try to send request again i.e become half-open but usually the circuit breaker waits for some period of time and then it becomes half-open.<br>
